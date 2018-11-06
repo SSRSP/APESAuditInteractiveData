@@ -4,15 +4,45 @@
 
 :root {
     --electricity-background: #95F1FF;
+    --electricity-background-r:;
+    --electricity-background-g:;
+    --electricity-background-b:;
+    --electricity-main-r:;
+    --electricity-main-g:;
+    --electricity-main-b:;
     --electricity-main: #28DEFF;
     --water-background: #AAD3FF;
     --water-main: #22A1FF;
+    --water-background-r:;
+    --water-background-g:;
+    --water-background-b:;
+    --water-main-r:;
+    --water-main-g:;
+    --water-main-b:;
     --waste-background: #93B89B;
     --waste-main: #274D2F;
+    --waste-background-r:;
+    --waste-background-g:;
+    --waste-background-b:;
+    --waste-main-r:;
+    --waste-main-g:;
+    --waste-main-b:;
     --transportation-background: #8C8C8C;
     --transportation-main: #353535;
+    --transportation-background-r:;
+    --transportation-background-g:;
+    --transportation-background-b:;
+    --transportation-main-r:;
+    --transportation-main-g:;
+    --transportation-main-b:;
     --main: var(--electricity-main);
     --background: var(--electricity-background);
+    --background-r:;
+    --background-g:;
+    --background-b:;
+    --main-r:;
+    --main-g:;
+    --main-b:;
     --offwhite-background: #f2f2f2;
 }
 
@@ -87,6 +117,8 @@ body {
 
 .body {
     margin: 0px;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 #auditSelector {
@@ -122,7 +154,7 @@ body {
     display: -webkit-flex;
     justify-content: center;
     padding: 0rem 0rem 0rem 0rem;
-    font-size: 300%;
+    font-size: 3vw;
     color: white;
     align-items: center;
     overflow: hidden;
@@ -175,8 +207,8 @@ body {
     width: 15%;
     left: 42.5%;
     height: 6rem;
-    font-size: 250%;
-    top: 15rem;
+    font-size: 2.5vw;
+    top: 13rem;
     border-radius: 5% 5% 15% 15%;
     background-color: #30C751;
     position: absolute;
@@ -190,13 +222,15 @@ body {
 }
 
 #ChartGrid {
-    width: 50vw;
+    /*width: 50vw;
     height: 30vw;
-    top: 45vh;
-    left: 25%;
+    top: 20rem;
+    left: 25%;*/
+    width: 100%;
+    height: 30rem;
     border: solid;
     border-color: var(--main);
-    position: absolute;
+    position: relative;
     display: grid;
     grid-column-gap: 0%;
     grid-row-gap: 0%;
@@ -204,19 +238,22 @@ body {
     grid-template-rows: 15% 70% 5%;
     align-content: space-evenly;
     justify-content: space-evenly;
-    
+    grid-area: 1 / 1 / 2 / 1;
 }
 
 #chart {
     grid-area: 1 / 1 / 4 / 2;
     background-color: var(--background);
     display: grid;
+    width: 100%;
+    height: 100%;
     grid-column-gap: 0px;
     grid-row-gap: 5%;
     grid-template-columns: 90%;
     grid-template-rows: 15% 70%;
     align-content: space-evenly;
     justify-content: space-evenly;
+    position: absolute;
 }
 
 #totalChart {
@@ -238,29 +275,54 @@ body {
     
 }
 
-
+#graphSolutionContainer {
+    min-height: 50rem;
+    width: 50vw;
+    top: 10rem;
+    left: 25%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-row-gap: 0rem;
+    grid-template-rows: 30vw auto;
+    ;
+}
 
 #solutions {
-    top: 110%;
+    /*top: 50vmax;
     width: 48vw;
-    left: 25%;
+    left: 25%;*/
     position: absolute;
     border: solid;
+    width: 48vw;
+    top: 31rem;
+    min-height: 30rem;
     border-color: var(--main);
     display: grid;
-    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-columns: 30% 30% 30%;
     grid-auto-rows: 15rem;
     padding: 1vw 1vw 1vw 1vw;
     justify-content: space-evenly;
     align-content: space-evenly;
+    grid-row-gap: 1vw;
+    margin-bottom: 1rem
 }
 
 #solutions * {
     background-color: #eeeeee;
     width: 100%;
     height: 15rem;
+    
 }
 
-#solutions .enabled {
+#solutions :hover {
+    box-shadow: 0 .04rem .08rem 0 var(--background), 0 .06rem .2rem 0 var(--background);
+}
+
+#solutions .implemented {
     background-color: var(--background);
+}
+
+#solutions .implemented:hover {
+    box-shadow: 0 .04rem .08rem 0 var(--main), 0 .06rem .2rem 0 var(--main);
 }

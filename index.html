@@ -16,8 +16,8 @@
         <div Id="root">
             <div Id="navbar" class="unselectable">
                 <!--<a Id="navbarspace"></a>-->
-                <a id="firstNB" class="active" href="/index.html">Audit Presentation</a>
-                <a href="/about.html">About</a>
+                <a id="firstNB" class="active" href="/APESAuditInteractiveData/index.html">Audit Presentation</a>
+                <a href="/APESAuditInteractiveData/about.html">About</a>
             </div>
             
             <div Id="auditSelector">
@@ -37,33 +37,34 @@
             </div>
             <div Id="moneyTotal">
             </div>
-            
-            <div Id="ChartGrid">
-                <div id="chart">
-                    <div id="selectors">
-                        <select id="whatSel" onchange="selectorsChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
-                        <!--<p id="type-text"></p>-->
-                        <select id="typeSel" onchange="selectorsChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
-                        <!--<p id="where-text"></p>-->
-                        <select id="whereSel" onchange="whereChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
+            <div id="graphSolutionContainer">
+                <div Id="ChartGrid">
+                    <div id="chart">
+                        <div id="selectors">
+                            <select id="whatSel" onchange="selectorsChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
+                            <!--<p id="type-text"></p>-->
+                            <select id="typeSel" onchange="selectorsChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
+                            <!--<p id="where-text"></p>-->
+                            <select id="whereSel" onchange="whereChange()" style="font-family: Helvetica-Normal, Helvetica, source-sans-pro, sans-serif;"></select>
+                        </div>
+                        <div id="graph">
+                            
+                        </div>  
                     </div>
-                    <div id="graph">
+                    <div id="viewer">
                         
-                    </div>  
+                    </div>
+                    <div id="totalChart">
+                        
+                    </div>
                 </div>
-                <div id="viewer">
-                    
+                <div id="solutions">
+                    <div class="implemented">s</div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </div>
-                <div id="totalChart">
-                    
-                </div>
-            </div>
-            <div id="solutions">
-                <div>s</div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
             </div>
         </div>
     </body>

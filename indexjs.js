@@ -28,8 +28,43 @@ Array.prototype.uniqueInCategory = function(category) {
     return unique;
 };
 
-var audits = ['electricity', 'water', 'waste', 'transportation' ];
+class solutionCard {
+  constructor(audit, implemented, change, economicImpact, environmentalImpact, socialImpact) {
+    this.implemented = implemented;
+    this.audit = audit;
+    this.change = change;
+    this.economicImpact = economicImpact;
+    this.environmentalImpact = environmentalImpact;
+    this.socialImpact = environmentalImpact;
+  }
+};
 
+var audits = ['electricity', 'water', 'waste', 'transportation' ];
+/*
+function convertHex(hex){
+    hex = hex.replace('#','');
+    var r, g, b;
+    r = parseInt(hex.substring(0,2), 16);
+    g = parseInt(hex.substring(2,4), 16);
+    b = parseInt(hex.substring(4,6), 16);
+    return {
+      "red": r,
+      "green": g,
+      "blue": b
+    };
+}
+
+var cssColorsToRGBA =function() {
+  for (var i = 0; i < 4; i++) {
+    setCSSVar(`--${audits[i]}-background-r`, convertHex(`--${audits[i]}-background`)["red"]);
+    setCSSVar(`--${audits[i]}-background-g`, convertHex(`--${audits[i]}-background`)["green"]);
+    setCSSVar(`--${audits[i]}-background-b`, convertHex(`--${audits[i]}-background`)["blue"]);
+    setCSSVar(`--${audits[i]}-main-r`, convertHex(`--${audits[i]}-main`)["red"]);
+    setCSSVar(`--${audits[i]}-main-g`, convertHex(`--${audits[i]}-main`)["green"]);
+    setCSSVar(`--${audits[i]}-main-b`, convertHex(`--${audits[i]}-main`)["blue"]);
+  }
+};
+cssColorsToRGBA();*/
 var currentAudit = 'electricity';
 
 
@@ -1962,16 +1997,16 @@ var getTotalMainUnitPerYear = function() {
   var audit = currentAudit.capitalize()
   switch(audit){
     case "Electricity":
-      return `${totalForThing(audit, 0, 0, "kWh Per Day")*365} kWh Per Year`;
+      return `${Math.round(totalForThing(audit, 0, 0, "kWh Per Day")*365, 4)} kWh Per Year`;
       break;
     case "Water":
-      return `${totalForThing(audit, 0, 0, "gallons per day")*365} Gallons of Water per Year`;
+      return `${Math.round(totalForThing(audit, 0, 0, "gallons per day")*365, 4)} Gallons of Water per Year`;
       break;
     case "Transportation":
-      return `${totalForThing(audit, 0, 0, "gasYear")} Gallons of Gas per Year`;
+      return `${totalForThing(audit, 0, 0, "GasYear")} Gallons of Gas per Year`;
       break;
     case "Waste":
-      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16)}lbs of Waste per Year`;
+      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16)} lbs of Waste per Year`;
       break;
     default:
   }
@@ -1995,9 +2030,10 @@ var makeSVG = function () {
     || document.documentElement.clientHeight
     || document.body.clientHeight;
     
-    var bHeight= Wheight * .1;
-    var bWidth = Wwidth * .25 * .4;
-    //alert(Wheight);
+    var bWidth= Wwidth * .1;
+    var rootFontSize = window.getComputedStyle(document.body).getPropertyValue('font-size');
+    rootFontSize = rootFontSize.replace("px", "");
+    var bHeight =  rootFontSize* 5;
     
     var previousButtonSnap = Snap("#previousButton");
     var nextButtonSnap = Snap("#nextButton");
@@ -2005,27 +2041,26 @@ var makeSVG = function () {
     nextButtonSnap.attr({viewbox: "0,0,200,100", preserveAspectRatio:"none"});
     var Pbutton = previousButtonSnap.polygon(0, 50, 50, 0, 200, 0, 200, 100, 50, 100);
     var Nbutton = nextButtonSnap.polygon(200, 50, 150, 0, 0, 0, 0, 100, 150, 100);*/
-    
-    previousButtonSnap.attr({viewbox: "0,0,200,100", preserveAspectRatio:"none"});
-    nextButtonSnap.attr({viewbox: "0,0,200,100", preserveAspectRatio:"none"});
-    var Pbutton = previousButtonSnap.polygon(0, 50, 50, 0, 200, 0, 200, 100, 50, 100);
-    var Nbutton = nextButtonSnap.polygon(200, 50, 150, 0, 0, 0, 0, 100, 150, 100);
+    previousButtonSnap.attr({viewbox: `0,0,${bWidth},${bHeight}`, preserveAspectRatio:"none"});
+    nextButtonSnap.attr({viewbox: `0,0,${bWidth},${bHeight}`, preserveAspectRatio:"none"});
+    var Pbutton = previousButtonSnap.polygon(0, bHeight * .5, bWidth * .25, 0, bWidth, 0, bWidth, bHeight, bWidth * .25, bHeight);
+    var Nbutton = nextButtonSnap.polygon(bWidth, bHeight * .5, bWidth * .75, 0, 0, 0, 0, bHeight, bWidth * .75, bHeight);
     
     changeColorButtons()
     Pbutton.hover(
         function() {
-            Pbutton.animate({points: "0, 50, 100, 0, 200, 0, 200, 100, 100, 100"}, 500, mina.elastic);
+            Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .5}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
         },
         function() {
-            Pbutton.animate({points: "0, 50, 50, 0, 200, 0, 200, 100, 50, 100"}, 500, mina.bounce);
+            Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .25}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .25}, ${bHeight}`}, 500, mina.bounce);
         }
     );
     Nbutton.hover(
         function() {
-            Nbutton.animate({points: "200, 50, 100, 0, 0, 0, 0, 100, 100, 100"}, 500, mina.elastic);
+            Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .5}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
         },
         function() {
-            Nbutton.animate({points: "200, 50, 150, 0, 0, 0, 0, 100, 150, 100"}, 500, mina.bounce);
+            Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .75}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .75}, ${bHeight}`}, 500, mina.bounce);
         }
     );
 };
@@ -2538,6 +2573,12 @@ var toNextAudit = function() {
     changeColorButtons();
     setCSSVar('--main', getMainColorAudit(currentAudit));
     setCSSVar('--background', getBackgroundColorAudit(currentAudit));
+    /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
+    setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
+    setCSSVar('--background-b', convertHex(getBackgroundColorAudit(currentAudit)).blue);
+    setCSSVar('--main-r', convertHex(getMainColorAudit(currentAudit)).red);
+    setCSSVar('--main-g', convertHex(getMainColorAudit(currentAudit)).green);
+    setCSSVar('--main-b', convertHex(getMainColorAudit(currentAudit)).blue);*/
     changeCurrentTitle(currentAudit);
     defaultSelectors();
     updatePageOnChange();
@@ -2547,11 +2588,22 @@ var toPreviousAudit = function() {
     changeColorButtons();
     setCSSVar('--main', getMainColorAudit(currentAudit));
     setCSSVar('--background', getBackgroundColorAudit(currentAudit));
+    /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
+    setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
+    setCSSVar('--background-b', convertHex(getBackgroundColorAudit(currentAudit)).blue);
+    setCSSVar('--main-r', convertHex(getMainColorAudit(currentAudit)).red);
+    setCSSVar('--main-g', convertHex(getMainColorAudit(currentAudit)).green);
+    setCSSVar('--main-b', convertHex(getMainColorAudit(currentAudit)).blue);*/
     changeCurrentTitle(currentAudit);
     defaultSelectors();
     updatePageOnChange();
 };
-
+/*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
+    setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
+    setCSSVar('--background-b', convertHex(getBackgroundColorAudit(currentAudit)).blue);
+    setCSSVar('--main-r', convertHex(getMainColorAudit(currentAudit)).red);
+    setCSSVar('--main-g', convertHex(getMainColorAudit(currentAudit)).green);
+    setCSSVar('--main-b', convertHex(getMainColorAudit(currentAudit)).blue);*/
 
 
 
@@ -2559,7 +2611,7 @@ var toPreviousAudit = function() {
 var loadedStart = function() {
   makeSVG();
   loadChartStuff();
-  setTimeout(function(){ updatePageOnChange(); }, 500)
+  setTimeout(function(){ updatePageOnChange(); }, 500);
   defaultSelectors();
   
 };

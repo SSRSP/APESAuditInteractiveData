@@ -45,18 +45,25 @@ class solutionCard {
 
 var solutions = {
   "Electricity": [  
-    new solutionCard(0, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Electricity", "Decrease Usage of Frequently Used Lights (Lights used for more than 3.5 hours per day) By 1.5 Hours Each Day", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Electricity", "Turn Off Monitors and TVs When Not In Use", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Electricity", "Turn Down Air Conditioning and Use A Blanket Instead Sometimes", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact")
     ],
   "Water": [
-    new solutionCard(0, "Water", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Water", "Spend Less Time In The Shower. Reduce by 20 Minutes Per Day", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Water", "Less Laundry. 2 Less Loads Per Week. Try to Wash As Much As Possible At Once", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Water", "Run Kitchen Sinks for 2 Minutes Less Each Day", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(3, "Water", "Run Bathroom Sinks for 2 Less Minutes Each Day. Don't Have It Running While Doing Something Else", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
   ],
   "Transportation": [
-    new solutionCard(0, "Transportation", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Transportation", "Combine Trips. For Example Go To The Bank And The Grocery Store In One Trip. Try To Do This Twice A Week.", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Transportation", "Car Pool. ", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
   ],
   "Waste": [
-    new solutionCard(0, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
   ]
 };
 

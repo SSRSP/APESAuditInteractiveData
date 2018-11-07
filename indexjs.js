@@ -29,15 +29,38 @@ Array.prototype.uniqueInCategory = function(category) {
 };
 
 class solutionCard {
-  constructor(audit, implemented, change, economicImpact, environmentalImpact, socialImpact) {
-    this.implemented = implemented;
+  constructor(id, audit, description, implemented, toChange, changeBy, where, economicImpact, environmentalImpact, socialImpact) {
+    this.id = id;
     this.audit = audit;
-    this.change = change;
+    this.title = description;
+    this.implemented = implemented;
+    this.toChange = toChange;
+    this.changeBy = changeBy;
+    this.where = where;
     this.economicImpact = economicImpact;
     this.environmentalImpact = environmentalImpact;
     this.socialImpact = environmentalImpact;
   }
+}
+
+var solutions = {
+  "Electricity": [  
+    new solutionCard(0, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Electricity", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact")
+    ],
+  "Water": [
+    new solutionCard(0, "Water", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+  ],
+  "Transportation": [
+    new solutionCard(0, "Transportation", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+  ],
+  "Waste": [
+    new solutionCard(0, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+  ]
 };
+
+
 
 var audits = ['electricity', 'water', 'waste', 'transportation' ];
 /*
@@ -1930,6 +1953,14 @@ var editedElectricityAuditData = originalElectricityAuditData;
 var editedWaterAuditData = originalWaterAuditData;
 var editedTransportationAuditData = originalTransportationAuditData;
 var editedWasteAuditData = originalWasteAuditData;
+
+var resetEditedAudits = function() {
+  editedElectricityAuditData = originalElectricityAuditData;
+  editedWaterAuditData = originalWaterAuditData;
+  editedTransportationAuditData = originalTransportationAuditData;
+  editedWasteAuditData = originalWasteAuditData;
+};
+
 var getWaterCostPerDay = function(index) {
     return editedWaterAuditData[index]["gallons per day"]*(4.65*(1/748));
 }
@@ -1984,6 +2015,9 @@ var getMainColorAudit = function(audit) {
 var getBackgroundColorAudit = function(audit) {
     return getCSSVar(`--${audit}-background`);
 };
+var getBackgroundGradientAudit = function(audit) {
+  return getCSSVar(`--${audit}-background-gradient`);
+};
 var changeColorButtons = function(){
     var NBTNID = Snap("#nextButton");
     var PBTNID = Snap("#previousButton");
@@ -1994,7 +2028,7 @@ var changeColorButtons = function(){
     
 };
 var getTotalMainUnitPerYear = function() {
-  var audit = currentAudit.capitalize()
+  var audit = currentAudit.capitalize();
   switch(audit){
     case "Electricity":
       return `${Math.round(totalForThing(audit, 0, 0, "kWh Per Day")*365, 4)} kWh Per Year`;
@@ -2006,7 +2040,7 @@ var getTotalMainUnitPerYear = function() {
       return `${totalForThing(audit, 0, 0, "GasYear")} Gallons of Gas per Year`;
       break;
     case "Waste":
-      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16)} lbs of Waste per Year`;
+      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16)}lbs of Waste per Year`;
       break;
     default:
   }
@@ -2018,7 +2052,143 @@ var updateTotal =function(newTotal) {
     document.getElementById("totalChart").innerHTML = newTotal;
 };
 
+var editData = function (audit, index, column, newValue) {
+  audit = audit.capitalize();
+  window[`edited${audit}AuditData`][index][column] = newValue;
+};
 
+var solutionsToHTML = function() {
+  var solutionsElementData ="";
+  var audit = currentAudit.capitalize();
+  for (var i = 0; i < solutions[audit].length; i++) {
+    var thisSolution = solutions[audit][i];
+    if (thisSolution["implemented"] === true) {
+      var solutionElementData = `
+      <div data-solution-id="${thisSolution["id"]}" id="solution${audit}${thisSolution["id"]}"onclick="makeChangeToData(this)" class="implemented">
+        <span class="solutionDescription">${thisSolution["title"]}</span><br />
+        <span class="impactHeader">Economic Impact:</span><br />
+        <span class="impacts">${thisSolution["economicImpact"]}</span><br />
+        <span class="impactHeader">Social Impact:</span><br />
+        <span class="impacts">${thisSolution["socialImpact"]}</span><br />
+        <span class="impactHeader">Environmental Impact:</span><br />
+        <span class="impacts">${thisSolution["environmentalImpact"]}</span>
+      </div>
+      `;
+    } else {
+    var solutionElementData = `
+      <div data-solution-id="${thisSolution["id"]}" id="solution${audit}${thisSolution["id"]}"onclick="makeChangeToData(this)">
+        <span class="solutionDescription">${thisSolution["title"]}</span><br />
+        <span class="impactHeader">Economic Impact:</span><br />
+        <span class="impacts">${thisSolution["economicImpact"]}</span><br />
+        <span class="impactHeader">Social Impact:</span><br />
+        <span class="impacts">${thisSolution["socialImpact"]}</span><br />
+        <span class="impactHeader">Environmental Impact:</span><br />
+        <span class="impacts">${thisSolution["environmentalImpact"]}</span>
+      </div>
+      `;
+      
+    }
+    
+    solutionsElementData += solutionElementData;
+    
+  }
+  document.getElementById("solutions").innerHTML = solutionsElementData;
+};
+
+var whereObjectOrWhat = function(thing) {
+  if (thing.isArray){
+    return "array"
+  } else {
+  return typeof thing;}
+}
+
+var whereCheck = function(warray, dindex) {
+  for (var i = 0; i < warray.length; i++) {
+    switch (warray["compare"]) {
+      case "==": 
+        if (!(dindex[warray["column"]] == warray["value"])) {
+          return false;
+        }  
+      case "<=":
+        if (!(dindex[warray["column"]] <= warray["value"])) {
+          return false;
+        }  
+      case ">=":
+        if (!(dindex[warray["column"]] >= warray["value"])) {
+          return false;
+        }  
+      case "!=":
+        if (!(dindex[warray["column"]] != warray["value"])) {
+          return false;
+        }  
+      default:
+        return false;
+    }
+  }
+}
+
+var changeData = function(audit, toChange, changeBy, where) {
+  audit = audit.capitalize();
+  for (var i=0; i < window[`edited${audit}AuditData`].length; i++) {
+    var Dindex = window[`edited${audit}AuditData`][i];
+    if (whereCheck(where, Dindex)){
+      var newVal = Dindex[toChange] + changeBy;
+      Dindex[toChange] = newVal;
+    }
+  }
+};
+
+var editDependentData = function(changedAudit) {
+  changedAudit = changedAudit.capitalize();
+  switch (changedAudit) {
+    case "Electricity": 
+      for (var i = 0; i < editedElectricityAuditData.length; i++) {
+        var Aindex = editedElectricityAuditData[i];
+        var totalMins = (Aindex["Total Hours/Week+Weekend"] * 60) + Aindex["Total Mins/Week+Weekend"];
+        var kW = Aindex["kW"];
+        var kWhWeek = (kW * (totalMins/60))/3;
+        var kWhDay = kWhWeek/7;
+        var dollarDay = kWhDay * .09;
+        Aindex["Dollars Per Day"] = dollarDay;
+        Aindex["kWh Per Day"] = kWhDay;
+        Aindex["kWh Per Week"] = kWhWeek;
+      }
+      break;
+    case "Water":
+      for (var i = 0; i < editedWasteAuditData.length; i++) {
+        var Aindex = editedWaterAuditData[i];
+        var totalUnits = Aindex["total units per day"];
+        var gallonsPerDay = Aindex["gallons per"] * totalUnits;
+        var dollarDay = gallonsPerDay * (4.65/748);
+        Aindex["gallons per day"] = gallonsPerDay;
+        Aindex["dollars per day"] = dollarDay;
+      }
+      break;
+    case "Transportation":
+      for (var i = 0; i < 3; i++) {
+        var Aindex = editedTransportationAuditData[i];
+        var miles48 = Aindex["miles48hours"];
+        var MPG = Aindex["MPG"];
+        var gasYear = (miles48 * (365/2))/MPG;
+        if (Aindex["vehicle type"] == "car") {
+          var gas48 = miles48/MPG;
+          var gasMonth = gas48 * (30/2);
+          Aindex["Gas48hours"] = gas48;
+          Aindex["GasMonth"] = gasMonth;
+        }
+        Aindex["GasYear"] = gasYear;
+      }
+      break;
+    case "Waste":
+      for (var i=0; i < 2; i++) {
+        var Aindex = editedWasteAuditData[i];
+        Aindex["total"] = Aindex["paper"] + Aindex["plastic"] + Aindex["metal"] + Aindex["glass"] + Aindex["other"] + Aindex["compostable"];
+      }
+      break;
+    default:
+    
+  }
+};
 
 var makeSVG = function () {
     changeCurrentTitle();
@@ -2045,8 +2215,9 @@ var makeSVG = function () {
     nextButtonSnap.attr({viewbox: `0,0,${bWidth},${bHeight}`, preserveAspectRatio:"none"});
     var Pbutton = previousButtonSnap.polygon(0, bHeight * .5, bWidth * .25, 0, bWidth, 0, bWidth, bHeight, bWidth * .25, bHeight);
     var Nbutton = nextButtonSnap.polygon(bWidth, bHeight * .5, bWidth * .75, 0, 0, 0, 0, bHeight, bWidth * .75, bHeight);
-    
-    changeColorButtons()
+    Pbutton.attr("id", "Pbutton");
+    Nbutton.attr("id", "Nbutton");
+    changeColorButtons();
     Pbutton.hover(
         function() {
             Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .5}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
@@ -2064,6 +2235,64 @@ var makeSVG = function () {
         }
     );
 };
+
+var redrawSVG = function() {
+  changeCurrentTitle();
+    var Wwidth = window.innerWidth
+    || document.documentElement.clientWidth
+    || document.body.clientWidth;
+    
+    var Wheight = window.innerHeight
+    || document.documentElement.clientHeight
+    || document.body.clientHeight;
+    
+    var bWidth= Wwidth * .1;
+    var rootFontSize = window.getComputedStyle(document.body).getPropertyValue('font-size');
+    rootFontSize = rootFontSize.replace("px", "");
+    var bHeight =  rootFontSize* 5;
+    
+    var previousButtonSnap = Snap("#previousButton");
+    var nextButtonSnap = Snap("#nextButton");
+    previousButtonSnap.attr({viewbox: `0,0,${bWidth},${bHeight}`, preserveAspectRatio:"none"});
+    nextButtonSnap.attr({viewbox: `0,0,${bWidth},${bHeight}`, preserveAspectRatio:"none"});
+    changeColorButtons();
+    var Pbutton = previousButtonSnap.children()[0];
+    var Nbutton = nextButtonSnap.children()[0].node;
+    alert(`${Pbutton}`)
+    Pbutton.attr("points" ,`0, ${bHeight * .5}, ${bWidth * .25}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .25}, ${bHeight}`)
+    Nbutton.attr("points", `${bWidth}, ${bHeight * .5}, ${bWidth * .75}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .75}, ${bHeight}`)
+    Pbutton.hover(
+        function() {
+            Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .5}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
+        },
+        function() {
+            Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .25}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .25}, ${bHeight}`}, 500, mina.bounce);
+        }
+    );
+    Nbutton.hover(
+        function() {
+            Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .5}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
+        },
+        function() {
+            Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .75}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .75}, ${bHeight}`}, 500, mina.bounce);
+        }
+    );
+}
+
+var makeChangeToData =function(solutionElement) {
+  solutionElement.classList.toggle("implemented");
+  var audit = currentAudit.capitalize();
+  var id = solutionElement.getAttribute("data-solution-id");
+  if (solutionElement["implemented"] === true) {
+    solutionElement["implemented"] = false;
+  } else {
+    solutionElement["implemented"] = true;
+  }
+  var solutionObject = solutions[audit][id];
+  changeData(audit, solutionObject["toChange"], solutionObject["changeBy"], solutionObject["where"]);
+  editDependentData(currentAudit);
+  updatePageOnChange();
+}
 
 var totalForThing = function(audit, search, searchCategory, totalCategory) {
     audit = audit.capitalize();
@@ -2470,7 +2699,12 @@ var updatePageOnChange = function () {
   updateTotal(getTotalMainUnitPerYear());
 };
 
-
+var resized = function() {
+  alert('resizing');
+  //makeSVG();
+  //changeColorButtons();
+  //reDrawChart();
+};
 
 
 var arrayToDatalist = function(array) {
@@ -2582,6 +2816,7 @@ var toNextAudit = function() {
     changeCurrentTitle(currentAudit);
     defaultSelectors();
     updatePageOnChange();
+    solutionsToHTML();
 };
 var toPreviousAudit = function() {
     currentAudit = getPreviousAudit(currentAudit);
@@ -2597,6 +2832,7 @@ var toPreviousAudit = function() {
     changeCurrentTitle(currentAudit);
     defaultSelectors();
     updatePageOnChange();
+    solutionsToHTML();
 };
 /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
     setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
@@ -2611,10 +2847,18 @@ var toPreviousAudit = function() {
 var loadedStart = function() {
   makeSVG();
   loadChartStuff();
+  setTimeout(function(){ solutionsToHTML(); }, 500);
   setTimeout(function(){ updatePageOnChange(); }, 500);
   defaultSelectors();
   
 };
+window.addEventListener("resize", function(){
+  clearTimeout
+  setTimeout(function(){
+  location.reload();
+  }, 1000);
+  
+});
 window.addEventListener("load", loadedStart);
 
 

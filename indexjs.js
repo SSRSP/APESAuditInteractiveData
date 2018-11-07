@@ -61,9 +61,9 @@ var solutions = {
     new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
   ],
   "Waste": [
-    new solutionCard(0, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Waste", "lorem ipsum blah blah blah blah cool words", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Waste", "Use More Glasses Instead Of Bottles", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Waste", "Recycle Wrappers", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Waste", "Use Actual Plates Instead Of Paper Plates. Same For Bowls", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
   ]
 };
 

@@ -44,6 +44,20 @@ class solutionCard {
   }
 }
 
+var setReactionTop = function () {
+    var solHeight = getComputedStyle(document.getElementById("solutions")).getPropertyValue("height");
+    solHeight = solHeight.replace("px", "");
+    solHeight = Number(solHeight);
+    var rootFontSize = window.getComputedStyle(document.body).getPropertyValue('font-size');
+    rootFontSize = Number(rootFontSize.replace("px", ""));
+    //alert(rootFontSize);
+    solHeight = solHeight / rootFontSize;
+    //alert(solHeight);
+    var reactionTop = solHeight + 33.75;
+    reactionTop = `${reactionTop}rem`;
+    setCSSVar("--reaction-top", reactionTop);
+};
+
 var solutions = {
   "Electricity": [  
     new solutionCard(0, "Electricity", "Decrease Usage of Frequently Used Lights (Lights used for more than 3.5 hours per day) By 1.5 Hours Each Day", false, "Total Mins All Week", -630,[{"column": "Category", "compare":"==", "value": "Lighting"}, {"column": "Total Mins All Week", "compare": ">=", "value": 1470}], "$36 Per Year Saved", "397 kWh, About 397 lbs of Coal, and About 1135 lbs of CO2 Are Saved Per Year", "It Can Be Difficult To Remember To Turn Off Lights. "),
@@ -2158,7 +2172,7 @@ var solutionsToHTML = function() {
     var thisSolution = solutions[audit][i];
     if (thisSolution["implemented"] === true) {
       var solutionElementData = `
-      <div data-solution-id="${thisSolution["id"]}" data-changed-array="${thisSolution["dataChange"]}" id="solution${audit}${thisSolution["id"]}" onclick="makeChangeToData(${thisSolution["id"]})" class="implemented">
+      <div data-solution-id="${thisSolution["id"]}" data-changed-array="${thisSolution["dataChange"]}" id="solution${audit}${thisSolution["id"]}" onclick="makeChangeToData(${thisSolution["id"]})" class="implemented, gradientBackground">
         <span class="solutionDescription">${thisSolution["title"]}</span><br />
         <span class="impactHeader">Economic Impact:</span><br />
         <span class="impacts">${thisSolution["economicImpact"]}</span><br />
@@ -2571,6 +2585,7 @@ var makeChangeToData =function(solutionElementId) {
   editDependentData(currentAudit);
   updatePageOnChange();
   solutionDiv.classList.toggle("implemented");
+  solutionDiv.classList.toggle("gradientBackground");
 };
 
 var totalForThing = function(audit, search, searchCategory, totalCategory) {
@@ -3096,6 +3111,7 @@ var toNextAudit = function() {
     defaultSelectors();
     updatePageOnChange();
     solutionsToHTML();
+    setReactionTop();
 };
 var toPreviousAudit = function() {
     currentAudit = getPreviousAudit(currentAudit);
@@ -3112,6 +3128,7 @@ var toPreviousAudit = function() {
     defaultSelectors();
     updatePageOnChange();
     solutionsToHTML();
+    setReactionTop();
 };
 /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
     setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
@@ -3131,6 +3148,7 @@ var loadedStart = function() {
   setTimeout(function(){ updatePageOnChange(); }, 500);
   defaultSelectors();
   EAuditTotalTime();
+  setTimeout(function(){ setReactionTop(); }, 500);
 };
 window.addEventListener("resize", function(){
   clearTimeout

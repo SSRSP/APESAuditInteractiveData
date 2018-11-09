@@ -57,14 +57,14 @@ var solutions = {
     new solutionCard(3, "Water", "Run Bathroom Sinks for 2 Less Minutes Each Day. Don't Have It Running While Doing Something Else", false, "total units per day", -2, [{"column": "type", "compare":"==", "value": "sink"},[{"column": "room", "compare":"==", "value": "Front Bathroom"},{"column": "room", "compare":"==", "value": "Back Bathroom"}]], "$20 Saved Per Year", "About 3,285 Gallons Of Water Are Saved Per Year", "Remembering To Turn Off The Sink When You Aren't Using It. Like When You Are Brushing Your Teeth")
   ],
   "Transportation": [
-    new solutionCard(0, "Transportation", "Combine Trips. For Example Go To The Bank And The Grocery Store In One Trip. Try To Do This Twice A Week.", false, "miles48hours", -20/7, [{"column": "vehicle type", "compare":"==", "value": "car"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Transportation", "Car Pool. Try To Drive Places With Other People Once Every Week Or So", false, "miles48hours", -12/7,[{"column": "vehicle type", "compare":"==", "value": "car"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", -0,[{}], "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Transportation", "Combine Trips. For Example Go To The Bank And The Grocery Store In One Trip. Try To Do This Twice A Week.", false, "miles48hours", -20/7, [{"column": "vehicle type", "compare":"==", "value": "car"}], "About $230 Saved Per Year", "About 79 Gallons Of Gas And 1580 lbs Of CO2 Saved Per Year", "Less Time Spent Doing Errands Also. Have To Plan Out Trips"),
+    new solutionCard(1, "Transportation", "Car Pool. Try To Drive Places With Other People Once Every Week Or So", false, "miles48hours", -12/7,[{"column": "vehicle type", "compare":"==", "value": "car"}], "About $139 Saved Per Year", "About 47 Gallons Of Gas And 940 lbs Of CO2 Saved Per Year", "Need To Plan The Carpooling With Other People And Also Adjust Schedule To Work With Multiple People. More Chatting With Pals Too!"),
+    new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", -0,[{}], "Less Gas Means Less Money Spent On Gas So Even Spending More On A Higher Gas Effiecency Vehicle Would Probably Eventually Pay For Itself", "Less Gas Used And CO2 Emmisions Put Into The Environment For A Long Term Change and Impact", "Might Be Hard To Find A Good Effieciency First Vehicle.")
   ],
   "Waste": [
-    new solutionCard(0, "Waste", "Use More Glasses Instead Of Bottles. Start with 2 less plastic bottles per day", false, "plastic", -6/8,[{"column": "type", "compare":"==", "value": "garbage"}], "Less Water Bottles Bought", "Less Water Bottles In Landfills", "More Spills. Clean Dishes. Water Stays Colder Longer Usually."),
-    new solutionCard(1, "Waste", "Recycle Wrappers", false, "plastic", -3/8,[{"column": "type", "compare":"==", "value": "garbage"}], "No Direct Affects", "Less Plastic Wrappers In Landfills", "Have To Get/Find A Recycling Bin Or Walk To The One Outside"),
-    new solutionCard(2, "Waste", "Use Actual Plates Instead Of Paper Plates. Same For Bowls", false, "paper", -3,[{"column": "type", "compare":"==", "value": "garbage"}], "Spend Less Money On Bowls", "Less Bowls and Food In Landfill", "Since We've Finished The Kitchen Renovation We've Been Using Real Plates And Bowls More So Mission Accomplished I suppose?")
+    new solutionCard(0, "Waste", "Use More Glasses Instead Of Bottles. Start with 2 less plastic bottles per day", false, "plastic", -6/8,[{"column": "type", "compare":"==", "value": "garbage"}], "Less Water Bottles Bought", "Less Water Bottles In Landfills. 17 lbs Less Plastic Into Landfills", "More Spills. Clean Dishes. Water Stays Colder Longer Usually."),
+    new solutionCard(1, "Waste", "Recycle Wrappers", false, "plastic", -3/8,[{"column": "type", "compare":"==", "value": "garbage"}], "No Direct Affects", "Less Plastic Wrappers In Landfills. 9 lbs Less Plastic Into Landfills", "Have To Get/Find A Recycling Bin Or Walk To The One Outside"),
+    new solutionCard(2, "Waste", "Use Actual Plates Instead Of Paper Plates. Same For Bowls", false, "paper", -3,[{"column": "type", "compare":"==", "value": "garbage"}], "Spend Less Money On Bowls", "Less Bowls and Food In Landfill. 69 lbs Less Paper Into Landfills", "Since We've Finished The Kitchen Renovation We've Been Using Real Plates And Bowls More So Mission Accomplished I suppose?")
   ]
 };
 
@@ -2131,10 +2131,10 @@ var getTotalMainUnitPerYear = function() {
       return `${Math.round(totalForThing(audit, 0, 0, "gallons per day")*365, 4)} Gallons of Water per Year`;
       break;
     case "Transportation":
-      return `${totalForThing(audit, 0, 0, "GasYear")} Gallons of Gas per Year`;
+      return `${Math.round(totalForThing(audit, 0, 0, "GasYear"))} Gallons of Gas per Year`;
       break;
     case "Waste":
-      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16)}lbs of Waste per Year`;
+      return `${Math.floor(totalForThing(audit, 0, 0, "total")/16*365)}lbs of Waste per Year`;
       break;
     default:
   }
@@ -2426,7 +2426,7 @@ var editDependentData = function(changedAudit) {
       }
       break;
     case "Transportation":
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 2; i++) {
         var Aindex = editedTransportationAuditData[i];
         var miles48 = Aindex["miles48hours"];
         var MPG = Aindex["MPG"];

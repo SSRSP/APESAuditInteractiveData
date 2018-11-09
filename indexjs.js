@@ -39,31 +39,32 @@ class solutionCard {
     this.where = where;
     this.economicImpact = economicImpact;
     this.environmentalImpact = environmentalImpact;
-    this.socialImpact = environmentalImpact;
+    this.socialImpact = socialImpact;
+    this.dataChange = [];
   }
 }
 
 var solutions = {
   "Electricity": [  
-    new solutionCard(0, "Electricity", "Decrease Usage of Frequently Used Lights (Lights used for more than 3.5 hours per day) By 1.5 Hours Each Day", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Electricity", "Turn Off Monitors and TVs When Not In Use", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Electricity", "Turn Down Air Conditioning and Use A Blanket Instead Sometimes", false, "Total Mins/Week+Weekend", "-60",[{"column": "Room", "compare":"==", "value": "Bathroom"}], "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Electricity", "Decrease Usage of Frequently Used Lights (Lights used for more than 3.5 hours per day) By 1.5 Hours Each Day", false, "Total Mins All Week", -630,[{"column": "Category", "compare":"==", "value": "Lighting"}, {"column": "Total Mins All Week", "compare": ">=", "value": 1470}], "$36 Per Year Saved", "397 kWh, About 397 lbs of Coal, and About 1135 lbs of CO2 Are Saved Per Year", "It Can Be Difficult To Remember To Turn Off Lights. "),
+    new solutionCard(1, "Electricity", "Turn Off Monitors and TVs When Not In Use", false, "Total Mins All Week", -630,[[{"column": "Appliance", "compare":"==", "value": "HP L1906 Monitor"},{"column": "Appliance", "compare":"==", "value": "LG 22EA53 Monitor"},{"column": "Appliance", "compare":"==", "value": "Acer 5200HQL Monitor"},{"column": "Appliance", "compare":"==", "value": "TV"},{"column": "Appliance", "compare":"==", "value": "Vizio E320VL TV"},{"column": "Appliance", "compare":"==", "value": "Dell E2210H"},{"column": "Appliance", "compare":"==", "value": "Acer A221HQV"}]], "$22 saved per year", "240 kWh, About 240 lbs of Coal, and About 686.4 lbs of CO2 Are Saved Per Year", "Can Be Difficult To Remember To Turn Off Monitors. One Of My Monitors Sometimes Doesn't Like To Turn Back On After It Is Turned Off"),
+    new solutionCard(2, "Electricity", "Turn Down Air Conditioning and Use A Blanket Instead Sometimes", false, "Total Mins All Week", -420,[{"column": "Appliance", "compare":"==", "value": "HVAC Unit"}], "$66 Saved Per Year", "730 kWh, About 730 lbs of Coal, and About 2088 lbs of CO2 Are Saved Per Year", "Cold")
     ],
   "Water": [
-    new solutionCard(0, "Water", "Spend Less Time In The Shower. Reduce by 20 Minutes Per Day", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Water", "Less Laundry. 2 Less Loads Per Week. Try to Wash As Much As Possible At Once", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Water", "Run Kitchen Sinks for 2 Minutes Less Each Day", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(3, "Water", "Run Bathroom Sinks for 2 Less Minutes Each Day. Don't Have It Running While Doing Something Else", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Water", "Spend Less Time In The Shower. Reduce by 20 Minutes Per Day", false, "total units per day", -20, [{"column": "source", "compare":"==", "value": "Shower"}], "$73 Saved Per Year", "About 11,600 Gallons Of Water Are Saved Per Year", "More Time In The Day. Have To Remember To Get Out Of The Shower Quicker."),
+    new solutionCard(1, "Water", "Less Laundry. 2 Less Loads Per Week. Try to Wash As Much As Possible At Once", false, "total units per day", -2/7, [{"column": "source", "compare":"==", "value": "Washing Machine"}], "$8 Saved Per Year", "About 1,240 Gallons Of Water Are Saved Per Year", "May Encourage Wearing Clothes A Few Times (Not Too Many Though) Before Washing Them Again."),
+    new solutionCard(2, "Water", "Run Kitchen Sinks for 2 Minutes Less Each Day", false, "total units per day", -2,[{"column": "type", "compare":"==", "value": "sink"},{"column": "room", "compare":"==", "value": "Kitchen"}], "$23 Saved Per Year", "About 3,650 Gallons Of Water Are Saved Per Year", "Must Be Conscience Of When And For How Long You Are Using The Sink For."),
+    new solutionCard(3, "Water", "Run Bathroom Sinks for 2 Less Minutes Each Day. Don't Have It Running While Doing Something Else", false, "total units per day", -2, [{"column": "type", "compare":"==", "value": "sink"},[{"column": "room", "compare":"==", "value": "Front Bathroom"},{"column": "room", "compare":"==", "value": "Back Bathroom"}]], "$20 Saved Per Year", "About 3,285 Gallons Of Water Are Saved Per Year", "Remembering To Turn Off The Sink When You Aren't Using It. Like When You Are Brushing Your Teeth")
   ],
   "Transportation": [
-    new solutionCard(0, "Transportation", "Combine Trips. For Example Go To The Bank And The Grocery Store In One Trip. Try To Do This Twice A Week.", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Transportation", "Car Pool. ", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Transportation", "Combine Trips. For Example Go To The Bank And The Grocery Store In One Trip. Try To Do This Twice A Week.", false, "miles48hours", -20/7, [{"column": "vehicle type", "compare":"==", "value": "car"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(1, "Transportation", "Car Pool. Try To Drive Places With Other People Once Every Week Or So", false, "miles48hours", -12/7,[{"column": "vehicle type", "compare":"==", "value": "car"}], "eco impact", "env impact", "social impact"),
+    new solutionCard(2, "Transportation", "Make Sure That The Next Car That We Buy (Probably When I Start Driving) Gets More Miles Per Gallon. This Card Will Not Change The Graph.", false, "Total Mins/Week+Weekend", -0,[{}], "eco impact", "env impact", "social impact")
   ],
   "Waste": [
-    new solutionCard(0, "Waste", "Use More Glasses Instead Of Bottles", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(1, "Waste", "Recycle Wrappers", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact"),
-    new solutionCard(2, "Waste", "Use Actual Plates Instead Of Paper Plates. Same For Bowls", false, "Total Mins/Week+Weekend", "-60", "eco impact", "env impact", "social impact")
+    new solutionCard(0, "Waste", "Use More Glasses Instead Of Bottles. Start with 2 less plastic bottles per day", false, "plastic", -6/8,[{"column": "type", "compare":"==", "value": "garbage"}], "Less Water Bottles Bought", "Less Water Bottles In Landfills", "More Spills. Clean Dishes. Water Stays Colder Longer Usually."),
+    new solutionCard(1, "Waste", "Recycle Wrappers", false, "plastic", -3/8,[{"column": "type", "compare":"==", "value": "garbage"}], "No Direct Affects", "Less Plastic Wrappers In Landfills", "Have To Get/Find A Recycling Bin Or Walk To The One Outside"),
+    new solutionCard(2, "Waste", "Use Actual Plates Instead Of Paper Plates. Same For Bowls", false, "paper", -3,[{"column": "type", "compare":"==", "value": "garbage"}], "Spend Less Money On Bowls", "Less Bowls and Food In Landfill", "Since We've Finished The Kitchen Renovation We've Been Using Real Plates And Bowls More So Mission Accomplished I suppose?")
   ]
 };
 
@@ -101,7 +102,8 @@ var currentAudit = 'electricity';
 
 var originalElectricityAuditData = [
   {
-    "Room": "Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Bathroom",
     "Appliance": "Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -123,7 +125,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.010285714285714285
   },
   {
-    "Room": "Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Bathroom",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 4,
@@ -145,7 +148,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.010799999999999999
   },
   {
-    "Room": "Dining Room",
+  "Total Mins All Week": 0, 
+"Room": "Dining Room",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 1,
@@ -167,7 +171,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.009
   },
   {
-    "Room": "Guest Room",
+  "Total Mins All Week": 0, 
+"Room": "Guest Room",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 1,
@@ -189,7 +194,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0007714285714285715
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "Lightbulb outside of sunporch",
     "Category": "Lighting",
     "Number Of": 1,
@@ -211,7 +217,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.007199999999999999
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "Fire Detector outside of sunporch",
     "Category": "Fire",
     "Number Of": 0,
@@ -230,7 +237,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "Lightbulb outside of bathroom",
     "Category": "Lighting",
     "Number Of": 1,
@@ -252,7 +260,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.043199999999999995
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "Weird Plant Light",
     "Category": "Lighting",
     "Number Of": 1,
@@ -274,7 +283,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.00792
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "House Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -296,7 +306,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.018514285714285716
   },
   {
-    "Room": "Hallway",
+  "Total Mins All Week": 0, 
+"Room": "Hallway",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 1,
@@ -318,7 +329,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.018514285714285716
   },
   {
-    "Room": "Kitchen",
+  "Total Mins All Week": 0, 
+"Room": "Kitchen",
     "Appliance": "Can Lights",
     "Category": "Lighting",
     "Number Of": 8,
@@ -340,7 +352,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0132
   },
   {
-    "Room": "Kitchen",
+  "Total Mins All Week": 0, 
+"Room": "Kitchen",
     "Appliance": "Cooktop",
     "Category": "Kitchen Appliances",
     "Number Of": 1,
@@ -362,7 +375,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.018
   },
   {
-    "Room": "Kitchen",
+  "Total Mins All Week": 0, 
+"Room": "Kitchen",
     "Appliance": "Ovens",
     "Category": "Kitchen Appliances",
     "Number Of": 2,
@@ -384,7 +398,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.1872
   },
   {
-    "Room": "Kitchen",
+  "Total Mins All Week": 0, 
+"Room": "Kitchen",
     "Appliance": "Refrigerator",
     "Category": "Kitchen Appliances",
     "Number Of": 1,
@@ -406,7 +421,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.5616
   },
   {
-    "Room": "Kitchen",
+  "Total Mins All Week": 0, 
+"Room": "Kitchen",
     "Appliance": "Various Appliances my father says",
     "Category": "Kitchen Appliances",
     "Number Of": 1,
@@ -428,7 +444,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0648
   },
   {
-    "Room": "Laundry",
+  "Total Mins All Week": 0, 
+"Room": "Laundry",
     "Appliance": "LED Light",
     "Category": "Lighting",
     "Number Of": 2,
@@ -450,7 +467,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0050914285714285705
   },
   {
-    "Room": "Laundry",
+  "Total Mins All Week": 0, 
+"Room": "Laundry",
     "Appliance": "Washer+Driver",
     "Category": "Appliances",
     "Number Of": 1,
@@ -472,7 +490,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.864
   },
   {
-    "Room": "Living Room",
+  "Total Mins All Week": 0, 
+"Room": "Living Room",
     "Appliance": "TV",
     "Category": "Computer",
     "Number Of": 1,
@@ -494,7 +513,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.09257142857142855
   },
   {
-    "Room": "Living Room",
+  "Total Mins All Week": 0, 
+"Room": "Living Room",
     "Appliance": "Computer",
     "Category": "Computer",
     "Number Of": 1,
@@ -516,7 +536,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.006171428571428572
   },
   {
-    "Room": "Living Room",
+  "Total Mins All Week": 0, 
+"Room": "Living Room",
     "Appliance": "Can Lights",
     "Category": "Lighting",
     "Number Of": 10,
@@ -538,7 +559,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.033
   },
   {
-    "Room": "Living Room",
+  "Total Mins All Week": 0, 
+"Room": "Living Room",
     "Appliance": "Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -559,7 +581,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.324
   },
   {
-    "Room": "Living Room",
+  "Total Mins All Week": 0, 
+"Room": "Living Room",
     "Appliance": "Receiver Stereo Thing",
     "Category": "Computer",
     "Number Of": 1,
@@ -581,7 +604,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.15428571428571428
   },
   {
-    "Room": "Mom Studio",
+  "Total Mins All Week": 0, 
+"Room": "Mom Studio",
     "Appliance": "Lightbulbs",
     "Category": "Lighting",
     "Number Of": 9,
@@ -603,7 +627,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.014425714285714287
   },
   {
-    "Room": "Mom Studio",
+  "Total Mins All Week": 0, 
+"Room": "Mom Studio",
     "Appliance": "Art Lights",
     "Category": "Art",
     "Number Of": 2,
@@ -625,7 +650,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.10491428571428571
   },
   {
-    "Room": "Mom Studio",
+  "Total Mins All Week": 0, 
+"Room": "Mom Studio",
     "Appliance": "Projector",
     "Category": "Art",
     "Number Of": 0,
@@ -644,7 +670,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Ring Doorbell",
     "Category": "Devices",
     "Number Of": 1,
@@ -666,7 +693,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.08639999999999999
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Wall Lights",
     "Category": "Lighting",
     "Number Of": 9,
@@ -688,7 +716,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.012149999999999998
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "String Lights",
     "Category": "Lighting",
     "Number Of": 48,
@@ -710,7 +739,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.07919999999999999
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Motion Lights",
     "Category": "Lighting",
     "Number Of": 6,
@@ -732,7 +762,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0135
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Mailbox Light",
     "Category": "Lighting",
     "Number Of": 1,
@@ -754,7 +785,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.00099
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Fountain Lights",
     "Category": "Lighting",
     "Number Of": 1,
@@ -776,7 +808,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.09719999999999998
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "HVAC Unit",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -798,7 +831,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 1.08
   },
   {
-    "Room": "Outside",
+  "Total Mins All Week": 0, 
+"Room": "Outside",
     "Appliance": "Fountain Pump",
     "Category": "Appliances",
     "Number Of": 1,
@@ -820,7 +854,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.09719999999999998
   },
   {
-    "Room": "Pantry",
+  "Total Mins All Week": 0, 
+"Room": "Pantry",
     "Appliance": "Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -842,7 +877,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.17279999999999998
   },
   {
-    "Room": "Pantry",
+  "Total Mins All Week": 0, 
+"Room": "Pantry",
     "Appliance": "lightbulb",
     "Category": "Lighting",
     "Number Of": 1,
@@ -864,7 +900,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.043199999999999995
   },
   {
-    "Room": "Pantry",
+  "Total Mins All Week": 0, 
+"Room": "Pantry",
     "Appliance": "House Vacuum",
     "Category": "Vacuum",
     "Number Of": 1,
@@ -886,7 +923,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.040114285714285706
   },
   {
-    "Room": "Pantry",
+  "Total Mins All Week": 0, 
+"Room": "Pantry",
     "Appliance": "Refrigerator",
     "Category": "Kitchen Appliances",
     "Number Of": 1,
@@ -908,7 +946,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.5616
   },
   {
-    "Room": "Parents Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bathroom",
     "Appliance": "Wall Lights",
     "Category": "Lighting",
     "Number Of": 6,
@@ -930,7 +969,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.019799999999999998
   },
   {
-    "Room": "Parents Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bathroom",
     "Appliance": "Shower Fan + Light",
     "Category": "Lighting",
     "Number Of": 1,
@@ -953,7 +993,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0378
   },
   {
-    "Room": "Parents Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bathroom",
     "Appliance": "Toilet Fan + Light",
     "Category": "Lighting",
     "Number Of": 1,
@@ -975,7 +1016,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0756
   },
   {
-    "Room": "Parents Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bathroom",
     "Appliance": "Curling Iron",
     "Category": "Devices",
     "Number Of": 1,
@@ -997,7 +1039,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0003428571428571429
   },
   {
-    "Room": "Parents Bathroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bathroom",
     "Appliance": "Closet Light",
     "Category": "Lighting",
     "Number Of": 1,
@@ -1019,7 +1062,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.010799999999999999
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Can Lights",
     "Category": "Lighting",
     "Number Of": 6,
@@ -1041,7 +1085,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.01584
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Fan Lights ",
     "Category": "Lighting",
     "Number Of": 4,
@@ -1063,7 +1108,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.038400000000000004
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -1085,7 +1131,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.13114285714285714
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Lamps",
     "Category": "Lighting",
     "Number Of": 2,
@@ -1107,7 +1154,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.00198
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Phone Chargers",
     "Category": "Devices",
     "Number Of": 2,
@@ -1129,7 +1177,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.2592
   },
   {
-    "Room": "Parents Bedroom",
+  "Total Mins All Week": 0, 
+"Room": "Parents Bedroom",
     "Appliance": "Alarm Clock",
     "Category": "Computer",
     "Number Of": 1,
@@ -1151,7 +1200,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.010799999999999999
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Lightbulbs",
     "Category": "Lighting",
     "Number Of": 6,
@@ -1173,7 +1223,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.019799999999999998
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Big Light",
     "Category": "Lighting",
     "Number Of": 2,
@@ -1194,7 +1245,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.00011520000000000001
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "AT&T Router 5268AC",
     "Category": "Computer",
     "Number Of": 1,
@@ -1216,7 +1268,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.02591999999999999
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Network Switch JGS524",
     "Category": "Computer",
     "Number Of": 1,
@@ -1238,7 +1291,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.08639999999999999
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Air Thing",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -1259,7 +1313,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.2808
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Dad PC",
     "Category": "Computer",
     "Number Of": 1,
@@ -1281,7 +1336,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.2592
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Dad PC Sleep Mode",
     "Category": "Computer",
     "Number Of": 0,
@@ -1300,7 +1356,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "HP L1906 Monitor",
     "Category": "Computer",
     "Number Of": 2,
@@ -1321,7 +1378,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.04443428571428571
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "INSIGNIA Speaker 13F24A",
     "Category": "Computer",
     "Number Of": 1,
@@ -1343,7 +1401,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.17279999999999998
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "LaserJet 5000 GN Printer",
     "Category": "Computer",
     "Number Of": 1,
@@ -1364,7 +1423,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.09257142857142855
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "LG 22EA53 Monitor",
     "Category": "Computer",
     "Number Of": 1,
@@ -1385,7 +1445,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.007621714285714285
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Acer 5200HQL Monitor",
     "Category": "Computer",
     "Number Of": 1,
@@ -1406,7 +1467,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.009263314285714287
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Mom PC Using",
     "Category": "Computer",
     "Number Of": 1,
@@ -1428,7 +1490,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.2592
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Mom PC Sleep Mode",
     "Category": "Computer",
     "Number Of": 0,
@@ -1447,7 +1510,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Parents Office",
+  "Total Mins All Week": 0, 
+"Room": "Parents Office",
     "Appliance": "Fire Detector",
     "Category": "Fire",
     "Number Of": 1,
@@ -1466,7 +1530,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Smart Bulb",
     "Category": "Lighting",
     "Number Of": 4,
@@ -1488,7 +1553,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.008228571428571429
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Lightbulb ",
     "Category": "Lighting",
     "Number Of": 1,
@@ -1510,7 +1576,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.00009428571428571429
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Computer",
     "Category": "Computer",
     "Number Of": 1,
@@ -1532,7 +1599,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.3096
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Vizio E320VL TV",
     "Category": "Computer",
     "Number Of": 1,
@@ -1554,7 +1622,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.03702857142857143
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Dell E2210H",
     "Category": "Computer",
     "Number Of": 1,
@@ -1564,7 +1633,7 @@ var originalElectricityAuditData = [
     "Percent Of Day": 0,
     "Mins/Week": 0,
     "Mins/Weekend": 0,
-    "Total Hours/Week+Weekend": 0,
+    "Total Hours/Week+Weekend": 48,
     "Total Mins/Week+Weekend": 0,
     "kW": 0.18,
     "kWh Per Week": 0,
@@ -1573,7 +1642,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Acer A221HQV",
     "Category": "Computer",
     "Number Of": 1,
@@ -1583,7 +1653,7 @@ var originalElectricityAuditData = [
     "Percent Of Day": 0,
     "Mins/Week": 0,
     "Mins/Weekend": 0,
-    "Total Hours/Week+Weekend": 0,
+    "Total Hours/Week+Weekend": 48,
     "Total Mins/Week+Weekend": 0,
     "kW": 0.18,
     "kWh Per Week": 0,
@@ -1592,7 +1662,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Echo Dot",
     "Category": "Computer",
     "Number Of": 1,
@@ -1614,7 +1685,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.006479999999999998
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Hue Light Bridge",
     "Category": "Computer",
     "Number Of": 1,
@@ -1636,7 +1708,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0035999999999999995
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "TPCast Router",
     "Category": "Computer",
     "Number Of": 1,
@@ -1658,7 +1731,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.012959999999999996
   },
   {
-    "Room": "Sam Office",
+  "Total Mins All Week": 0, 
+"Room": "Sam Office",
     "Appliance": "Fan",
     "Category": "AC/Fans",
     "Number Of": 1,
@@ -1680,7 +1754,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0905142857142857
   },
   {
-    "Room": "Sam Room",
+  "Total Mins All Week": 0, 
+"Room": "Sam Room",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 2,
@@ -1702,7 +1777,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.020057142857142853
   },
   {
-    "Room": "Sam Room",
+  "Total Mins All Week": 0, 
+"Room": "Sam Room",
     "Appliance": "Snoopy Lamp",
     "Category": "Lighting",
     "Number Of": 1,
@@ -1724,7 +1800,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.0005485714285714285
   },
   {
-    "Room": "Sam Room",
+  "Total Mins All Week": 0, 
+"Room": "Sam Room",
     "Appliance": "Phone Charger",
     "Category": "Devices",
     "Number Of": 1,
@@ -1746,7 +1823,8 @@ var originalElectricityAuditData = [
     "Dollars Per Day": 0.043199999999999995
   },
   {
-    "Room": "Sunporch",
+  "Total Mins All Week": 0, 
+"Room": "Sunporch",
     "Appliance": "Lightbulb",
     "Category": "Lighting",
     "Number Of": 1,
@@ -1956,6 +2034,13 @@ var originalWasteAuditData = [
     }
     ];
     
+var EAuditTotalTime = function () {
+  for (var i = 0; i < originalElectricityAuditData.length; i++) {
+    var totalMinsAllWeek = originalElectricityAuditData[i]["Total Mins/Week+Weekend"] + originalElectricityAuditData[i]["Total Hours/Week+Weekend"]*60;
+    originalElectricityAuditData[i]["Total Mins All Week"] = totalMinsAllWeek; 
+  }
+};
+EAuditTotalTime();
 var editedElectricityAuditData = originalElectricityAuditData;
 var editedWaterAuditData = originalWaterAuditData;
 var editedTransportationAuditData = originalTransportationAuditData;
@@ -1967,6 +2052,8 @@ var resetEditedAudits = function() {
   editedTransportationAuditData = originalTransportationAuditData;
   editedWasteAuditData = originalWasteAuditData;
 };
+
+
 
 var getWaterCostPerDay = function(index) {
     return editedWaterAuditData[index]["gallons per day"]*(4.65*(1/748));
@@ -2071,7 +2158,7 @@ var solutionsToHTML = function() {
     var thisSolution = solutions[audit][i];
     if (thisSolution["implemented"] === true) {
       var solutionElementData = `
-      <div data-solution-id="${thisSolution["id"]}" id="solution${audit}${thisSolution["id"]}"onclick="makeChangeToData(this)" class="implemented">
+      <div data-solution-id="${thisSolution["id"]}" data-changed-array="${thisSolution["dataChange"]}" id="solution${audit}${thisSolution["id"]}" onclick="makeChangeToData(${thisSolution["id"]})" class="implemented">
         <span class="solutionDescription">${thisSolution["title"]}</span><br />
         <span class="impactHeader">Economic Impact:</span><br />
         <span class="impacts">${thisSolution["economicImpact"]}</span><br />
@@ -2083,7 +2170,7 @@ var solutionsToHTML = function() {
       `;
     } else {
     var solutionElementData = `
-      <div data-solution-id="${thisSolution["id"]}" id="solution${audit}${thisSolution["id"]}"onclick="makeChangeToData(this)">
+      <div data-solution-id="${thisSolution["id"]}" data-changed-array="" id="solution${audit}${thisSolution["id"]}" onclick="makeChangeToData(${thisSolution["id"]})">
         <span class="solutionDescription">${thisSolution["title"]}</span><br />
         <span class="impactHeader">Economic Impact:</span><br />
         <span class="impacts">${thisSolution["economicImpact"]}</span><br />
@@ -2108,41 +2195,188 @@ var whereObjectOrWhat = function(thing) {
   } else {
   return typeof thing;}
 }
-
-var whereCheck = function(warray, dindex) {
+var whereCheckAnd = function(warray, dindex) {
+  var isTrue = true;
   for (var i = 0; i < warray.length; i++) {
-    switch (warray["compare"]) {
-      case "==": 
-        if (!(dindex[warray["column"]] == warray["value"])) {
-          return false;
-        }  
-      case "<=":
-        if (!(dindex[warray["column"]] <= warray["value"])) {
-          return false;
-        }  
-      case ">=":
-        if (!(dindex[warray["column"]] >= warray["value"])) {
-          return false;
-        }  
-      case "!=":
-        if (!(dindex[warray["column"]] != warray["value"])) {
-          return false;
-        }  
-      default:
-        return false;
+    switch (warray[i]["compare"]) {
+          case "==": 
+            if (!(dindex[warray[i]["column"]] == warray[i]["value"])) {
+              isTrue = false;
+              break;
+            }  
+          case "<=":
+            if (!(dindex[warray[i]["column"]] <= warray[i]["value"])) {
+              isTrue = false;
+              break;
+            }  
+          case ">=":
+            if (!(dindex[warray[i]["column"]] >= warray[i]["value"])) {
+              isTrue = false;
+              break;
+            }  
+          case ">":
+            if (!(dindex[warray[i]["column"]] > warray[i]["value"])) {
+              isTrue = false;
+              break;
+            } 
+          case "<":
+            if (!(dindex[warray[i]["column"]] < warray[i]["value"])) {
+              isTrue = false;
+              break;
+            }  
+          case "!=":
+            if (!(dindex[warray[i]["column"]] != warray[i]["value"])) {
+              isTrue = false;
+              break;
+            }  
+          default:
+            isTrue = false;
+    }
+  }
+}
+var whereCheckOr = function(warray, dindex) {
+  var isTrue = false;
+  for (var i = 0; i < warray.length; i++) {
+    switch (warray[i]["compare"]) {
+          case "==": 
+            if ((dindex[warray[i]["column"]] == warray[i]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          case "<=":
+            if ((dindex[warray[i]["column"]] <= warray[i]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          case ">=":
+            if ((dindex[warray[i]["column"]] >= warray[i]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          case ">":
+            if ((dindex[warray[i]["column"]] > warray[i]["value"])) {
+              isTrue = true;
+              break;
+            } 
+          case "<":
+            if ((dindex[warray[i]["column"]] < warray[i]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          case "!=":
+            if ((dindex[warray[i]["column"]] != warray[i]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          default:
+            isTrue = false;
     }
   }
 }
 
-var changeData = function(audit, toChange, changeBy, where) {
-  audit = audit.capitalize();
-  for (var i=0; i < window[`edited${audit}AuditData`].length; i++) {
-    var Dindex = window[`edited${audit}AuditData`][i];
-    if (whereCheck(where, Dindex)){
-      var newVal = Dindex[toChange] + changeBy;
-      Dindex[toChange] = newVal;
+var whereCheckEvaluateObject = function(warray, dindex, index) {
+  var isTrue = false
+  switch (warray[index]["compare"]) {
+          case "==": 
+            if ((dindex[warray[index]["column"]] == warray[index]["value"])) {
+              isTrue = true;
+            }  
+            break;
+          case "<=":
+            if ((dindex[warray[index]["column"]] <= warray[index]["value"])) {
+              isTrue = true;
+              break;
+            }  
+          case ">=":
+            if ((dindex[warray[index]["column"]] >= warray[index]["value"])) {
+              isTrue = true;
+            }
+            break;  
+          case ">":
+            if ((dindex[warray[index]["column"]] > warray[index]["value"])) {
+              isTrue = true;
+            }
+            break; 
+          case "<":
+            if ((dindex[warray[index]["column"]] < warray[index]["value"])) {
+              isTrue = true;
+            }  
+            break;
+          case "!=":
+            if ((dindex[warray[index]["column"]] != warray[index]["value"])) {
+              isTrue = true;
+            }  
+            break;
+          default:
+            isTrue = false;
+    }
+  return isTrue;
+}
+
+var whereCheck = function(warray, dindex) {
+  var warrayReturnArray = [];
+  for (var i = 0; i < warray.length; i++){
+    if (Array.isArray(warray[i])) {
+      var nArrayTrue = false;
+      for (var j = 0; j < warray[i].length; j++){
+        if (whereCheckEvaluateObject(warray[i], dindex, j) == true) {
+          nArrayTrue = true;
+        }
+      }
+      warrayReturnArray[i] = nArrayTrue;
+    } else {
+      warrayReturnArray[i] = whereCheckEvaluateObject(warray, dindex, i);
+      //alert(warrayReturnArray[i]);
     }
   }
+  var returnValue = true;
+  for (var i = 0; i < warrayReturnArray.length; i++){
+    if (warrayReturnArray[i] == false) {
+      returnValue = false;
+    }
+  }
+  return returnValue;
+};
+
+var changeData = function(audit, toChange, changeBy, where, inputChangeArray) {
+  audit = audit.capitalize();
+  if (changeBy == "change array") {
+    var changeArray = inputChangeArray;
+    for (var i=0; i < window[`edited${audit}AuditData`].length; i++) {
+      var Dindex = window[`edited${audit}AuditData`][i];
+      changeBy = changeArray[i];
+      var newVal = Dindex[toChange] - changeBy;
+      //alert(changeBy);
+      if (newVal >= 0){
+        Dindex[toChange] = newVal;
+      } else {
+        Dindex[toChange] = 0;
+      }
+     
+    }
+  } else {
+    var changeArray = [];
+    for (var i=0; i < window[`edited${audit}AuditData`].length; i++) {
+      var Dindex = window[`edited${audit}AuditData`][i];
+      var toChangeArray = 0;
+      if (whereCheck(where, Dindex)){
+        var newVal = Dindex[toChange] + changeBy;
+        //alert(Dindex["Total Mins All Week"]);
+        //alert(changeBy);
+        if (newVal >= 0){
+          Dindex[toChange] = newVal;
+          toChangeArray = changeBy;
+        } else {
+          toChangeArray = Dindex[toChange];
+          Dindex[toChange] = 0;
+        }
+        
+      }
+      changeArray[i] = toChangeArray;
+    }
+  }
+  //alert(changeArray);
+  return changeArray;
 };
 
 var editDependentData = function(changedAudit) {
@@ -2151,24 +2385,44 @@ var editDependentData = function(changedAudit) {
     case "Electricity": 
       for (var i = 0; i < editedElectricityAuditData.length; i++) {
         var Aindex = editedElectricityAuditData[i];
-        var totalMins = (Aindex["Total Hours/Week+Weekend"] * 60) + Aindex["Total Mins/Week+Weekend"];
+        var totalMins = (Aindex["Total Mins All Week"]);
         var kW = Aindex["kW"];
         var kWhWeek = (kW * (totalMins/60))/3;
         var kWhDay = kWhWeek/7;
         var dollarDay = kWhDay * .09;
-        Aindex["Dollars Per Day"] = dollarDay;
-        Aindex["kWh Per Day"] = kWhDay;
-        Aindex["kWh Per Week"] = kWhWeek;
+        if (dollarDay >= 0){
+          Aindex["Dollars Per Day"] = dollarDay;
+        } else {
+          Aindex["Dollars Per Day"] = 0;
+        }
+        if (kWhDay >= 0){
+          Aindex["kWh Per Day"] = kWhDay;
+        } else {
+          Aindex["kWh Per Day"] = 0;
+        }
+        if (kWhWeek >= 0){
+          Aindex["kWh Per Week"] = kWhWeek;
+        } else {
+          Aindex["kWh Per Week"] = 0;
+        }
       }
       break;
     case "Water":
-      for (var i = 0; i < editedWasteAuditData.length; i++) {
+      for (var i = 0; i < editedWaterAuditData.length; i++) {
         var Aindex = editedWaterAuditData[i];
         var totalUnits = Aindex["total units per day"];
         var gallonsPerDay = Aindex["gallons per"] * totalUnits;
         var dollarDay = gallonsPerDay * (4.65/748);
-        Aindex["gallons per day"] = gallonsPerDay;
-        Aindex["dollars per day"] = dollarDay;
+        if (dollarDay >= 0){
+          Aindex["dollars per day"] = dollarDay;
+        } else {
+          Aindex["dollars per day"] = 0;
+        }
+        if (gallonsPerDay >= 0){
+          Aindex["gallons per day"] = gallonsPerDay;
+        } else {
+          Aindex["gallons per day"] = 0;
+        }
       }
       break;
     case "Transportation":
@@ -2180,11 +2434,22 @@ var editDependentData = function(changedAudit) {
         if (Aindex["vehicle type"] == "car") {
           var gas48 = miles48/MPG;
           var gasMonth = gas48 * (30/2);
+        if (gas48 >= 0){
           Aindex["Gas48hours"] = gas48;
-          Aindex["GasMonth"] = gasMonth;
+        } else {
+          Aindex["Gas48hours"] = 0;
         }
-        Aindex["GasYear"] = gasYear;
-      }
+        if (gasMonth >= 0){
+          Aindex["GasMonth"] = gasMonth;
+        } else {
+          Aindex["GasMonth"] = 0;
+        }
+        }
+        if (gasYear >= 0){
+          Aindex["GasYear"] = gasYear;
+        } else {
+          Aindex["GasYear"] = 0;
+        }}
       break;
     case "Waste":
       for (var i=0; i < 2; i++) {
@@ -2286,20 +2551,27 @@ var redrawSVG = function() {
     );
 }
 
-var makeChangeToData =function(solutionElement) {
-  solutionElement.classList.toggle("implemented");
+var makeChangeToData =function(solutionElementId) {
   var audit = currentAudit.capitalize();
-  var id = solutionElement.getAttribute("data-solution-id");
+  var solutionElement = solutions[audit][solutionElementId];
+  //alert(solutionElement.where[0].compare);
+  var solutionObject = solutionElement;
+  var solutionDiv = document.getElementById(`solution${audit}${solutionElementId}`);
   if (solutionElement["implemented"] === true) {
+    solutionObject["dataChange"] = changeData(audit, solutionObject["toChange"], ("change array"), solutionObject["where"], solutionObject["dataChange"]);
     solutionElement["implemented"] = false;
   } else {
+    solutionObject["dataChange"] = changeData(audit, solutionObject["toChange"],solutionObject["changeBy"], solutionObject["where"], solutionObject["dataChange"]);
+    //alert(solutionObject["dataChange"]);
     solutionElement["implemented"] = true;
   }
-  var solutionObject = solutions[audit][id];
-  changeData(audit, solutionObject["toChange"], solutionObject["changeBy"], solutionObject["where"]);
+  
+  //setTimeout(function() {)},500);
+  //changeData(audit, solutionObject["toChange"], solutionObject["changeBy"], solutionObject["where"]);
   editDependentData(currentAudit);
   updatePageOnChange();
-}
+  solutionDiv.classList.toggle("implemented");
+};
 
 var totalForThing = function(audit, search, searchCategory, totalCategory) {
     audit = audit.capitalize();
@@ -2314,7 +2586,7 @@ var totalForThing = function(audit, search, searchCategory, totalCategory) {
       }
     }
     if (total === 0) {
-      total = 1
+      total = .0001;
     };
     return total;
 };
@@ -2853,11 +3125,12 @@ var toPreviousAudit = function() {
 
 var loadedStart = function() {
   makeSVG();
+  editDependentData("Electricity");
   loadChartStuff();
   setTimeout(function(){ solutionsToHTML(); }, 500);
   setTimeout(function(){ updatePageOnChange(); }, 500);
   defaultSelectors();
-  
+  EAuditTotalTime();
 };
 window.addEventListener("resize", function(){
   clearTimeout

@@ -20,6 +20,7 @@
     --background-gradient: var(--electricity-background-gradient);
     --offwhite-background: #f2f2f2;
     --reaction-top: 0;
+    --footer-top: 0;
     --pearl-white-color: #DADEDF;
 }
 
@@ -261,6 +262,7 @@ body {
 
 #graphSolutionContainer {
     min-height: 50rem;
+    height: auto;
     width: 50vw;
     top: 10rem;
     left: 25%;
@@ -282,6 +284,7 @@ body {
     background-attachment: fixed;
     padding: .5vw 1vw 1vw 1vw;
     margin-bottom: 1vw;
+    line-height: 1.5;
 }
 
 #solutions {
@@ -312,6 +315,9 @@ body {
     height: 100%;
     cursor: pointer;
     transition: background-color .5s;
+    transition: color .25s;
+    padding: .25rem;
+    line-height: 1.25;
 }
 
 #solutions div:hover {
@@ -320,6 +326,7 @@ body {
 
 #solutions .implemented {
     background-color: var(--background);
+    color: white;
 }
 
 #solutions div.implemented:hover {
@@ -332,4 +339,17 @@ body {
     background-position: center !important;
     background-attachment: fixed !important;
     
+}
+
+#footer {
+    width: 100vw;
+    position: absolute;
+    top: var(--footer-top);
+    left: 0;
+    height: 3rem;
+}
+
+.impactHeader {
+    font-weight: 600;
+    line-height: 2;
 }

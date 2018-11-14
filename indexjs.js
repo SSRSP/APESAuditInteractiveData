@@ -45,6 +45,7 @@ class solutionCard {
 }
 
 var setReactionTop = function () {
+    //also sets footer height
     var solHeight = getComputedStyle(document.getElementById("solutions")).getPropertyValue("height");
     solHeight = solHeight.replace("px", "");
     solHeight = Number(solHeight);
@@ -54,9 +55,17 @@ var setReactionTop = function () {
     solHeight = solHeight / rootFontSize;
     //alert(solHeight);
     var reactionTop = solHeight + 33.75;
+    var reacHeight = getComputedStyle(document.getElementById("ParentsReaction")).getPropertyValue("height");
+    reacHeight = reacHeight.replace("px", "");
+    reacHeight = Number(reacHeight);
+    reacHeight = reacHeight / rootFontSize;
+    var footerTop = reactionTop + reacHeight + 22;
+    footerTop = `${footerTop}rem`;
     reactionTop = `${reactionTop}rem`;
+    setCSSVar("--footer-top", footerTop);
     setCSSVar("--reaction-top", reactionTop);
 };
+
 
 var solutions = {
   "Electricity": [  
@@ -2605,6 +2614,95 @@ var totalForThing = function(audit, search, searchCategory, totalCategory) {
     };
     return total;
 };
+function hslToRgb(h, s, l){
+        var r, g, b;
+
+        if(s == 0){
+            r = g = b = l; // achromatic
+        }else{
+            var hue2rgb = function hue2rgb(p, q, t){
+                if(t < 0) t += 1;
+                if(t > 1) t -= 1;
+                if(t < 1/6) return p + (q - p) * 6 * t;
+                if(t < 1/2) return q;
+                if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+                return p;
+            }
+
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1.0/3.0);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1.0/3.0);
+        }
+
+        return [Math.min(Math.floor(r * 256), 255), Math.min(Math.floor(g * 256), 255), Math.min(Math.floor(b * 256), 255)];
+    }
+var RGBtoHSL = function(r,g,b){
+    r /= 255, g /= 255, b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+
+    if(max == min){
+        h = s = 0; // achromatic
+    }else{
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    //h = h * 360;
+    //s = s * 100;
+    //l = l * 100;
+    return [h, s, l];
+}
+
+var HexToRGB = function(hex){
+    hex = hex.replace("#","")
+    var r = parseInt(hex.substring(1,3),16);
+    var g = parseInt(hex.substring(3,5),16);
+    var b = parseInt(hex.substring(5,7),16);
+    return [r,g,b];
+}
+function decimalToHexString(number)
+{
+  if (number < 0)
+  {
+    number = 0xFFFFFFFF + number + 1;
+  }
+  number = number.toString(16).toUpperCase()
+  if (number.length < 2) {
+      number += "0";
+  }
+  return number;
+}
+var RGBToHex = function(r,g,b){
+    return `#${decimalToHexString(r)}${decimalToHexString(g)}${decimalToHexString(b)}`
+}
+
+
+
+var chartColorFunction = function(hexInput, amountRows) {
+    var colorArrayReturn = [];
+    var increaseAmount = 70 / amountRows /100;
+    var inRGB = HexToRGB(hexInput);
+    var inHSL = RGBtoHSL(inRGB[0],inRGB[1],inRGB[2]);
+    //alert(inHSL)
+    for (var i = 0; i < amountRows; i++) {
+        var HSLColorIndexed = [inHSL[0], inHSL[1], (i * increaseAmount) + .15];
+        //alert(HSLColorIndexed)
+        var RGBColorIndexed = hslToRgb(HSLColorIndexed[0], HSLColorIndexed[1], HSLColorIndexed[2]);
+        //alert(RGBColorIndexed)
+        var hexColorIndexed = RGBToHex(RGBColorIndexed[0],RGBColorIndexed[1],RGBColorIndexed[2])
+        colorArrayReturn.push(hexColorIndexed)
+    }
+    //alert(colorArrayReturn[0])
+    return colorArrayReturn;
+}
 
 var drawChart = function(audit, what, type, where) {
     audit = audit.capitalize();
@@ -2802,10 +2900,18 @@ var drawChart = function(audit, what, type, where) {
         break;  
     }
     if (audit == 'Transportation' && type == "all"){
+        /*options.animation.startup = true;
+        options.animation.duration = 500;
+        options.animation.easing = 'in';*/
       var chart = new google.visualization.BarChart(document.getElementById('graph'));
     } else {
+        options.pieHole = .2;
+        options.colors = chartColorFunction(getCSSVar(`--${audit.toLowerCase()}-background`), data.getNumberOfRows());
+        //alert(getCSSVar(`--${audit.toLowerCase()}-background`));
+        //alert(chartColorFunction(getCSSVar(`--${audit.toLowerCase()}-background`, data.getNumberOfRows())));
       var chart = new google.visualization.PieChart(document.getElementById('graph'));
     }
+    
     chart.draw(data, options);
 };
 
@@ -3101,6 +3207,7 @@ var toNextAudit = function() {
     changeColorButtons();
     setCSSVar('--main', getMainColorAudit(currentAudit));
     setCSSVar('--background', getBackgroundColorAudit(currentAudit));
+    setCSSVar('--background-gradient', getBackgroundGradientAudit(currentAudit));
     /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
     setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
     setCSSVar('--background-b', convertHex(getBackgroundColorAudit(currentAudit)).blue);
@@ -3118,6 +3225,7 @@ var toPreviousAudit = function() {
     changeColorButtons();
     setCSSVar('--main', getMainColorAudit(currentAudit));
     setCSSVar('--background', getBackgroundColorAudit(currentAudit));
+    setCSSVar('--background-gradient', getBackgroundGradientAudit(currentAudit));
     /*setCSSVar('--background-r', convertHex(getBackgroundColorAudit(currentAudit)).red);
     setCSSVar('--background-g', convertHex(getBackgroundColorAudit(currentAudit)).green);
     setCSSVar('--background-b', convertHex(getBackgroundColorAudit(currentAudit)).blue);

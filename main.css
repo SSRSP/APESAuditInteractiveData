@@ -3,9 +3,9 @@
 
 
 :root {
-    --electricity-background: #95F1FF;
-    --electricity-background-gradient: #77FAFF;
-    --electricity-main: #28DEFF;
+    --electricity-background: #7BEEFF;
+    --electricity-background-gradient: #00DDFF;
+    --electricity-main: #EAFCFF;
     --water-background: #AAD3FF;
     --water-background-gradient: #64C1FF;
     --water-main: #22A1FF;
@@ -13,7 +13,7 @@
     --waste-background-gradient: #A5E1B0;
     --waste-main: #274D2F;
     --transportation-background: #8C8C8C;
-    --transportation-background-gradient: #c1c1c1;
+    --transportation-background-gradient: #B1B1B1;
     --transportation-main: #353535;
     --main: var(--electricity-main);
     --background: var(--electricity-background);
@@ -189,7 +189,7 @@ body {
     font-size: 2.25vw;
     top: 13rem;
     border-radius: 5% 5% 15% 15%;
-    background-color: #30C751;
+    background-image: linear-gradient(#30C751,#2DC44F);
     position: absolute;
     color: white;
     font-family: helvetica, Helvetica, source-sans-pro, sans-serif;
@@ -309,7 +309,7 @@ body {
 }
 
 #solutions div {
-    background-color: #eeeeee;
+    background-color: #F5F5F5;
     width: 100%;
     min-height: 15rem;
     height: 100%;
@@ -334,7 +334,7 @@ body {
 }
 
 .gradientBackground {
-    background-image: linear-gradient(var(--background), var(--background-gradient)) !important;
+    background-image: linear-gradient(to bottom left, var(--background), var(--background-gradient)) !important;
     background-size: cover !important;
     background-position: center !important;
     background-attachment: fixed !important;

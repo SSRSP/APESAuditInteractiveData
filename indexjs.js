@@ -2110,7 +2110,7 @@ var getTotalCostPerYear = function(audit) {
     }
 };
 var changeCurrentTitle = function(title) {
-    document.querySelector("#current").innerHTML = currentAudit;
+    document.querySelector("#current").innerHTML = currentAudit.capitalize();
 };
 var getNextAudit = function (current) {
     if (current === 'transportation') {
@@ -2140,8 +2140,10 @@ var changeColorButtons = function(){
     var PBTNID = Snap("#previousButton");
     var PPolys = PBTNID.select("polygon");
     var NPolys = NBTNID.select("polygon");
-    PPolys.animate({fill: getBackgroundColorAudit(getPreviousAudit(currentAudit)), stroke: getBackgroundColorAudit(getPreviousAudit(currentAudit)), strokeOpacity: .5}, 500, mina.easein);
-    NPolys.animate({fill: getBackgroundColorAudit(getNextAudit(currentAudit)), stroke: getBackgroundColorAudit(getNextAudit(currentAudit)), strokeOpacity: .5}, 500, mina.easein);
+    var Pgradient = PBTNID.gradient(`l(.25,0,1.25,0)${getBackgroundColorAudit(getPreviousAudit(currentAudit))}-${getBackgroundGradientAudit(getPreviousAudit(currentAudit))}`);
+    var Ngradient = NBTNID.gradient(`l(1.25,0,.25,0)${getBackgroundColorAudit(getNextAudit(currentAudit))}-${getBackgroundGradientAudit(getNextAudit(currentAudit))}`);
+    PPolys.attr({fill: Pgradient, stroke: getBackgroundColorAudit(getPreviousAudit(currentAudit)), strokeOpacity: 0});
+    NPolys.attr({fill: Ngradient, stroke: getBackgroundColorAudit(getNextAudit(currentAudit)), strokeOpacity: 0});
     
 };
 var getTotalMainUnitPerYear = function() {
@@ -2553,7 +2555,6 @@ var redrawSVG = function() {
     changeColorButtons();
     var Pbutton = previousButtonSnap.children()[0];
     var Nbutton = nextButtonSnap.children()[0].node;
-    alert(`${Pbutton}`)
     Pbutton.attr("points" ,`0, ${bHeight * .5}, ${bWidth * .25}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .25}, ${bHeight}`)
     Nbutton.attr("points", `${bWidth}, ${bHeight * .5}, ${bWidth * .75}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .75}, ${bHeight}`)
     Pbutton.hover(
@@ -3214,7 +3215,7 @@ var toNextAudit = function() {
     setCSSVar('--main-r', convertHex(getMainColorAudit(currentAudit)).red);
     setCSSVar('--main-g', convertHex(getMainColorAudit(currentAudit)).green);
     setCSSVar('--main-b', convertHex(getMainColorAudit(currentAudit)).blue);*/
-    changeCurrentTitle(currentAudit);
+    changeCurrentTitle(currentAudit.capitalize());
     defaultSelectors();
     updatePageOnChange();
     solutionsToHTML();
@@ -3232,7 +3233,7 @@ var toPreviousAudit = function() {
     setCSSVar('--main-r', convertHex(getMainColorAudit(currentAudit)).red);
     setCSSVar('--main-g', convertHex(getMainColorAudit(currentAudit)).green);
     setCSSVar('--main-b', convertHex(getMainColorAudit(currentAudit)).blue);*/
-    changeCurrentTitle(currentAudit);
+    changeCurrentTitle(currentAudit.capitalize());
     defaultSelectors();
     updatePageOnChange();
     solutionsToHTML();

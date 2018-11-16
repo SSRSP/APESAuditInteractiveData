@@ -2486,6 +2486,47 @@ var editDependentData = function(changedAudit) {
     
   }
 };
+var SVGIconCoords =  {
+    Electricity:  [
+        .4, 0, 
+        .5, .1, 
+        .6, 0,
+        .575, .2,
+        .55, .4,
+        .6, .4,
+        .65, .4,
+        .475, .7,
+        .3, 1, //I-W this one /9
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1, //W
+        .35, .75, //X
+        .4, .5, //Y
+        .325, .5,
+        .25, .5,
+        .4, .25
+      ],
+    Water: [
+        
+    ],
+    Waste: [
+        ],
+    Transportation: [
+        ]
+};
+
+
 
 var makeSVG = function () {
     changeCurrentTitle();
@@ -2514,6 +2555,26 @@ var makeSVG = function () {
     var Nbutton = nextButtonSnap.polygon(bWidth, bHeight * .5, bWidth * .75, 0, 0, 0, 0, bHeight, bWidth * .75, bHeight);
     Pbutton.attr("id", "Pbutton");
     Nbutton.attr("id", "Nbutton");
+    var awayHeight = (bHeight - (bWidth * .4))/2;
+    var containerWH = bWidth * .4;
+    //IconSize
+    var IconS = function(percent) {
+        return percent * containerWH;
+    };
+    var coordsToPathString = function(coordsArray){
+    var returnString = `M ${IconS(coordsArray[0])}, ${IconS(coordsArray[1])} `;
+    var coordLoop = coordsArray;
+        for (var i = 0; i < coordsArray.length/2; i + 2) {
+            returnString += `C ${IconS(coordLoop[i])}, ${IconS(coordLoop[i+1])}. ${IconS(coordLoop[i+2])}`;
+        }
+        returnString += " Z";
+        return returnString;
+    };
+    var NIconContainer = nextButtonSnap.svg(bWidth * .05, awayHeight, bWidth * .4, bWidth * .4, 0, 0, containerWH, containerWH);
+    var PIconContainer = previousButtonSnap.svg();
+    //var NIcon = NIconContainer.path(coordsToPathString(SVGIconCoords["Electricity"]));
+    var PIcon = PIconContainer.path();
+    //NIcon.attr({stroke: "red", strokeWidth: 1});
     changeColorButtons();
     Pbutton.hover(
         function() {

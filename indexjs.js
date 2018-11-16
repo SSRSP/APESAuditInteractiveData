@@ -2572,9 +2572,9 @@ var makeSVG = function () {
     };
     var NIconContainer = nextButtonSnap.svg(bWidth * .05, awayHeight, bWidth * .4, bWidth * .4, 0, 0, containerWH, containerWH);
     var PIconContainer = previousButtonSnap.svg();
-    //var NIcon = NIconContainer.path(coordsToPathString(SVGIconCoords["Electricity"]));
+    var NIcon = NIconContainer.path(coordsToPathString(SVGIconCoords["Electricity"]));
     var PIcon = PIconContainer.path();
-    //NIcon.attr({stroke: "red", strokeWidth: 1});
+    NIcon.attr({stroke: "red", strokeWidth: 1});
     changeColorButtons();
     Pbutton.hover(
         function() {

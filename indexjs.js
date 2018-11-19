@@ -2145,6 +2145,7 @@ var changeColorButtons = function(){
     PPolys.attr({fill: Pgradient, stroke: getBackgroundColorAudit(getPreviousAudit(currentAudit)), strokeOpacity: 0});
     NPolys.attr({fill: Ngradient, stroke: getBackgroundColorAudit(getNextAudit(currentAudit)), strokeOpacity: 0});
     
+    
 };
 var getTotalMainUnitPerYear = function() {
   var audit = currentAudit.capitalize();
@@ -2487,16 +2488,16 @@ var editDependentData = function(changedAudit) {
   }
 };
 var SVGIconCoords =  {
-    Electricity:  [
+    "Electricity":  [
         .4, 0, 
-        .5, .1, 
-        .6, 0,
-        .575, .2,
+        .535, .05, 
+        .67, 0,
+        .61, .2,
         .55, .4,
         .6, .4,
         .65, .4,
         .475, .7,
-        .3, 1, //I-W this one /9
+        .3, 1, 
         .3, 1,
         .3, 1,
         .3, 1,
@@ -2510,20 +2511,136 @@ var SVGIconCoords =  {
         .3, 1,
         .3, 1,
         .3, 1,
-        .3, 1, //W
-        .35, .75, //X
-        .4, .5, //Y
+        .3, 1, 
+        .35, .75, 
+        .4, .5, 
         .325, .5,
         .25, .5,
-        .4, .25
+        .325, .25,
+        .4, 0
       ],
-    Water: [
-        
+    "Water": [
+        .5, .0, //a-e
+        .5, .0,
+        .5, .0,
+        .5, .0,
+        .5, .0,
+        .5, .25, //f
+        .6, .5, //G
+        .8 , 1, //H
+        .5, 1, //I - Y
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .5, 1, 
+        .2, 1, //Z
+        .4, .5, //1
+        .5, .25,
+        .5, 0
     ],
-    Waste: [
+    "Waste": [
+        .2, .2,
+        .5, 0,
+        .8, .2,
+        .5, .4,
+        .21, .2,
+        .5, .45,
+        .8, .2,
+        .7, 1, //I-O
+        .7, 1,
+        .7, 1,
+        .7, 1,
+        .7, 1,
+        .7, 1,
+        .7, 1,
+        .3, 1, //P-1
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .3, 1,
+        .2, .2,
+        .2, .2
         ],
-    Transportation: [
-        ]
+    "Transportation": [
+           .3, .3,
+           .5, .15, 
+           .7, .3,
+           .73, .4,//D
+           .7, .5, 
+           .8, .5,//F
+           .8, .7, //G
+           .725, .725, //H
+           .65, .7,//I
+           .6, .63,//J
+           .56, .65,//K
+           .61, .62,//L
+           .65, .7,//M
+           .6, .75,//N
+           .55, .7,//O
+           .5, .725,//P
+           .45, .7,//Q
+           .4, .64,//R
+           .36, .65,//S
+           .42, .6,//T
+           .45, .7,//U
+           .4, .75,//V
+           .35, .7,//W
+           .275, .725,//X
+           .2, .7,//Y
+           .2, .5,//Z
+           .3, .5,//1
+           .325, .45,//2
+           .3,.3
+    ],
+    "Empty": [
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+        0, 1,
+    ]
 };
 
 
@@ -2562,21 +2679,23 @@ var makeSVG = function () {
         return percent * containerWH;
     };
     var coordsToPathString = function(coordsArray){
-    var returnString = `M ${IconS(coordsArray[0])}, ${IconS(coordsArray[1])} `;
-    var coordLoop = coordsArray;
-        for (var i = 0; i < coordsArray.length/2; i + 2) {
-            returnString += `C ${IconS(coordLoop[i])}, ${IconS(coordLoop[i+1])}. ${IconS(coordLoop[i+2])}`;
+        var returnString = `M ${IconS(coordsArray[0])}, ${IconS(coordsArray[1])} `;
+        var coordLoop = coordsArray;
+        for (var i = 0; i <= coordsArray.length; i = i + 4) {
+            returnString += `C ${IconS(coordLoop[i])}, ${IconS(coordLoop[i+1])}, ${IconS(coordLoop[i+2])}, ${IconS(coordLoop[i+3])}, ${IconS(coordLoop[i+4])}, ${IconS(coordLoop[i+5])}`;
         }
         returnString += " Z";
         return returnString;
     };
     var NIconContainer = nextButtonSnap.svg(bWidth * .05, awayHeight, bWidth * .4, bWidth * .4, 0, 0, containerWH, containerWH);
-    var PIconContainer = previousButtonSnap.svg();
-    var NIcon = NIconContainer.path(coordsToPathString(SVGIconCoords["Electricity"]));
-    var PIcon = PIconContainer.path();
-    NIcon.attr({stroke: "red", strokeWidth: 1});
+    var PIconContainer = previousButtonSnap.svg(bWidth * .55, awayHeight, bWidth * .4, bWidth * .4, 0, 0, containerWH, containerWH);
+    //alert(coordsToPathString(SVGIconCoords["Electricity"]));
+    var NIcon = NIconContainer.path(coordsToPathString(SVGIconCoords[getNextAudit(currentAudit).capitalize()]));
+    var PIcon = PIconContainer.path(coordsToPathString(SVGIconCoords[getPreviousAudit(currentAudit).capitalize()]));
+    NIcon.attr({stroke: "none", strokeWidth: 4, fill: "white", overflow: "visible"});
+    PIcon.attr({stroke: "none", strokeWidth: 4, fill: "white", overflow: "visible"});
     changeColorButtons();
-    Pbutton.hover(
+    previousButtonSnap.hover(
         function() {
             Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .5}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
         },
@@ -2584,7 +2703,7 @@ var makeSVG = function () {
             Pbutton.animate({points: `0, ${bHeight * .5}, ${bWidth * .25}, 0, ${bWidth}, 0, ${bWidth}, ${bHeight}, ${bWidth * .25}, ${bHeight}`}, 500, mina.bounce);
         }
     );
-    Nbutton.hover(
+    nextButtonSnap.hover(
         function() {
             Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .5}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .5}, ${bHeight}`}, 500, mina.elastic);
         },
@@ -2592,6 +2711,14 @@ var makeSVG = function () {
             Nbutton.animate({points: `${bWidth}, ${bHeight * .5}, ${bWidth * .75}, 0, 0, 0, 0, ${bHeight}, ${bWidth * .75}, ${bHeight}`}, 500, mina.bounce);
         }
     );
+    previousButtonSnap.click(function(){
+        setTimeout(function(){PIcon.animate({d: coordsToPathString(SVGIconCoords[getPreviousAudit(currentAudit).capitalize()])}, 500, mina.backout)}, 100);
+        setTimeout(function(){NIcon.animate({d: coordsToPathString(SVGIconCoords[getNextAudit(currentAudit).capitalize()])}, 500, mina.backout)}, 100);
+    });
+    nextButtonSnap.click(function(){
+        setTimeout(function(){NIcon.animate({d: coordsToPathString(SVGIconCoords[getNextAudit(currentAudit).capitalize()])}, 500, mina.backout)}, 100);
+        setTimeout(function(){PIcon.animate({d: coordsToPathString(SVGIconCoords[getPreviousAudit(currentAudit).capitalize()])}, 500, mina.backout)}, 100);
+    });
 };
 
 var redrawSVG = function() {
